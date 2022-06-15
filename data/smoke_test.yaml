@@ -1,0 +1,21 @@
+
+train: /project/train/smoke_yolo_data/train_.txt
+val: /project/train/smoke_yolo_data/train_.txt
+test: /project/train/smoke_yolo_data/train_.txt
+
+
+# 用于模型榜榜
+#nc: 6  # number of classes
+#names: ['front_head', 'side_head', 'back_head', 'hand', 'smoke_part_box', 'smoke']
+
+
+
+# 用于实战榜
+
+nc: 14  # number of classes 14
+
+# box: [0,6], line:[6], key_point:[7, 14]
+names: ['front_head', 'side_head', 'back_head', 'hand', 'smoke_part_box', 'smoke',
+        'smoke_part_line',
+        'left_eye', 'right_eye', 'left_ear', 'right_ear', 'left_mouth', 'right_mouth',  'nose']  # class names
+
