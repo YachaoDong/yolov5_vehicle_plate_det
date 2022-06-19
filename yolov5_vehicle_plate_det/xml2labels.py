@@ -113,6 +113,9 @@ def convert_annotation(image_id, xml_dir_path='/project/train/src_repo/dataset/x
 
 
 if __name__ == '__main__':
+    
+    # 获取所有的img路径
+    
 
     # 设置参数
     parser = argparse.ArgumentParser()
