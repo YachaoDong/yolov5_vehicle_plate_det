@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import glob
 
 def get_imgs_path(data_dir='/home/data/'):
     dirs = os.listdir(data_dir)
@@ -20,7 +21,8 @@ def get_imgs_path(data_dir='/home/data/'):
             ocr_dirs.append[d]
     
     for d in det_dirs:
-        
+        for image_path in glob.glob(os.path.join(d + "*.jpg")):
+        d.glob(*.jpg)
     
 return det_dirs, ocr_dirs
             
