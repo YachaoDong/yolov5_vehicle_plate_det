@@ -9,6 +9,7 @@ rm  -r /home/data/vehicle_data/*
 mkdir  -p /home/data/vehicle_data/labels
 mkdir  -p /home/data/vehicle_data/xmls
 
+
 # 拷贝图像
 # cp /home/data/*/*.jpg  /home/data/smoke_data/images/
 # 拷贝xml
