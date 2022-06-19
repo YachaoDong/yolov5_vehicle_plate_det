@@ -1,0 +1,18 @@
+
+train: /home/data/smoke_data/train.txt
+val: /home/data/smoke_data/val.txt
+test: /home/data/smoke_data/test.txt
+
+
+nc: 13  # number of classes 13
+
+names: ['truck', 'van', 'car', 'slagcar', 'bus', 'fire_truck',
+        'police_car', 'ambulance',  'SUV', 'microbus', 'unknown_vehicle',
+        'plate', 'double_plate']  # class names
+
+nco: 10
+# num: 10
+vehicle_color: ['white', 'siliver', 'grey', 'black', 'red', 'blue', 'yellow', 'green', 'brown', 'others']
+# num: 6
+plate_color: ['blue', 'yellow', 'green', 'white', 'others', 'black']
+
