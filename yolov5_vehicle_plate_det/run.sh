@@ -5,15 +5,15 @@ rm  -r /home/data/vehicle_data/*
 
 
 #创建数据集相关文件夹
-# mkdir  -p /home/data/vehicle_data/images
-# mkdir  -p /home/data/vehicle_data/labels
-# mkdir  -p /home/data/vehicle_data/xmls
+mkdir  -p /home/data/vehicle_data/images
+mkdir  -p /home/data/vehicle_data/labels
+mkdir  -p /home/data/vehicle_data/xmls
 
 
 # 拷贝图像
-# cp /home/data/*/*.jpg  /home/data/smoke_data/images/
+cp /home/data/*/*.jpg  /home/data/smoke_data/images/
 # 拷贝xml
-# cp /home/data/*/*.xml  /home/data/smoke_data/xmls/
+cp /home/data/*/*.xml  /home/data/smoke_data/xmls/
 
 # xml转txt labels
 python /project/train/src_repo/yolov5_smoke/xml2labels.py

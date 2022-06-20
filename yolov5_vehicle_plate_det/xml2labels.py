@@ -126,9 +126,6 @@ if __name__ == '__main__':
                         help='需要保存txt文件目录路径')
     opt = parser.parse_args()
     
-    with open(opt.xml_txt_path, 'r') as f1:
-        abs_xml_path = [line.strip() for line in f1.readlines()]
-            
             
         
     for image_path in glob.glob(opt.img_dir_path + "*.jpg"):  # 每一张图片都对应一个xml文件这里写xml对应的图片的路径

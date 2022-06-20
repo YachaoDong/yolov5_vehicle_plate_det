@@ -71,105 +71,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     # return det_dirs, ocr_dirs
 
 
-# 将xml转换为yolov5labels
-# box: [0,6], line:[6], key_point:[7, 14]
-classes = ['truck', 'van', 'car', 'slagcar', 'bus', 'fire_truck',
-           'police_car', 'ambulance',  'SUV', 'microbus', 'unknown_vehicle',
-           'plate', 'double_plate']
 
-vehicle_color = ['white', 'silver', 'grey', 'black', 'red', 'blue', 'yellow', 'green', 'brown', 'others']
-
-abs_path = os.getcwd()
-
-def convert_annotation(xml_path,
-                       txt_dir_path='/project/train/src_repo/dataset/labels/'):
-    in_file = open(xml_path, encoding='utf-8')
-    xml_p = Path(xml_path)
-    out_file = open(txt_dir_path + xml_p.stem + '.txt', 'w')
-
-    tree = ET.parse(in_file)
-    root = tree.getroot()
-    size = root.find('size')
-    w = int(size.find('width').text)
-    h = int(size.find('height').text)
-    
-    def convert(size, box):
-        # box: xmin, xmax, ymin, ymax
-        dw = 1. / (size[0])
-        dh = 1. / (size[1])
-        x = (box[0] + box[1]) / 2.0 - 1
-        y = (box[2] + box[3]) / 2.0 - 1
-        w = box[1] - box[0]
-        h = box[3] - box[2]
-        x = x * dw
-        w = w * dw
-        y = y * dh
-        h = h * dh
-        return (x, y, w, h)
-    
-    # car bbox obj
-    for obj in root.iter('object'):
-        # difficult = obj.find('difficult').text
-        # 获取类别
-        cls = obj.find('name').text
-        if cls not in classes:
-            continue
-        cls_id = classes.index(cls)
-
-        # 获取bbox
-        xmlbox = obj.find('bndbox')
-        b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text),
-             float(xmlbox.find('ymax').text))
-        # bbox转换 xyxy 转换为 xywh(0~1)
-        # bb = convert((w, h), b)
-        bb = (b[0]/w, b[2]/h, b[1]/w, b[3]/h)
-
-        # 获取颜色
-        color = obj.find('attributes').find('attribute').find('value').text
-        if color not in vehicle_color:
-            continue
-        color_id = vehicle_color.index(color)
-
-        # 写入 cls_id + color_id + bbox
-        out_file.write(str(cls_id) + " " + str(color_id) + " " + " ".join([str(a) for a in bb]))
-        # 换行
-        out_file.write('\n')
-
-    # plate poly obj
-    for obj in root.iter('polygon'):
-        # difficult = obj.find('difficult').text
-
-        # 获取类别
-        cls = obj.find('class').text
-        if cls not in classes:
-            continue
-        cls_id = classes.index(cls)
-
-        # 获取颜色
-        color = ' '
-        for attribute in obj.find('attributes').iter('attribute'):
-            if attribute.find('name').text == 'color':
-                color = attribute.find('value').text
-
-        if color not in vehicle_color:
-            continue
-        color_id = vehicle_color.index(color)
-
-        # 获取bbox
-        points = obj.find('points').text
-        points = points.split(';')   # ["x1,y1", "x2,y3", "x3,y3","x4,y4"]
-        poly = []
-        for i in points:
-            x = float(i.split(',')[0]) / w
-            y = float(i.split(',')[1]) / h
-            poly.append(x)
-            poly.append(y)
-
-        # 写入 cls_id + color_id + poly
-        out_file.write(str(cls_id) + " " + str(color_id) + " " + " ".join([str(a) for a in poly]))
-        # 换行
-        out_file.write('\n')
-    
     
     
 
@@ -181,8 +83,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default='/home/data/', help='input img label path')
     parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/', help='input img label path')
     
-    # xml 转 yolov5 labels 参数
-    parser.add_argument('--txt_dir_path', type=str, default=r'/home/data/vehicle_data/labels/', help='需要保存txt文件目录路径')
+
     
     
     opt = parser.parse_args()
@@ -190,12 +91,6 @@ if __name__ == '__main__':
     # labels文件夹中生成  all_det.txt  all_ocr.txt  all_det_xmls.txt  train.txt  test.txt  val.txt
     gen_imgs_path(opt.data_dir, opt.save_dir_path)
     
-    os.makedirs(opt.txt_dir_path, exist_ok='True')
-    
-    with open(os.path.join(op.save_dir_path, all_det_xmls)) as f1:
-        for line in f1.readlines():
-            convert_annotation(xml_path=line.strip(), txt_dir_path=opt.txt_dir_path)
-            
         
 
 
