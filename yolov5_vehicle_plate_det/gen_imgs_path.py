@@ -182,7 +182,6 @@ if __name__ == '__main__':
     parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/labels/', help='input img label path')
     
     # xml 转 yolov5 labels 参数
-    parser.add_argument('--xml_txt_path', type=str, default='/home/data/smoke_data/xmls/', help='保存xml绝对路径的txt路径')
     parser.add_argument('--txt_dir_path', type=str, default=r'/home/data/vehicle_data/labels/', help='需要保存txt文件目录路径')
     
     
@@ -191,7 +190,11 @@ if __name__ == '__main__':
     # labels文件夹中生成  all_det.txt  all_ocr.txt  all_det_xmls.txt  train.txt  test.txt  val.txt
     gen_imgs_path(opt.data_dir, opt.save_dir_path)
     
-    with open()
+    with open(os.path.join(op.save_dir_path, all_det_xmls)) as f1:
+        for line in f1.readlines():
+            convert_annotation(xml_path=line.strip(), txt_dir_path=opt.txt_dir_path)
+            
+        
 
 
             
