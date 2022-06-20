@@ -7,7 +7,7 @@
 
 #创建数据集相关文件夹
 mkdir  -p /project/.config/Ultralytics/
-mkdir  -p /home/data/vehicle_data/images
+# mkdir  -p /home/data/vehicle_data/images
 mkdir  -p /home/data/vehicle_data/labels
 # mkdir  -p /home/data/vehicle_data/xmls
 
@@ -15,8 +15,8 @@ mkdir  -p /home/data/vehicle_data/labels
 python /project/train/src_repo/yolov5_vehicle_plate_det/gen_imgs_path.py
 
 # 拷贝图像
-cp -r /home/data/*/*.jpg  /home/data/vehicle_data/images/
-ls /home/data/vehicle_data/images/
+# cp -r /home/data/*/*.jpg  /home/data/vehicle_data/images/
+
 # # 拷贝xml
 # cp /home/data/*/*.xml  /home/data/smoke_data/xmls/
 
@@ -35,8 +35,5 @@ python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 
 
 python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 16 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
 
-ls /home/data/
-ls /home/data/vehicle_data/images
-ls /home/data/vehicle_data/labels
-ls /home/data/vehicle_data/
+
 
