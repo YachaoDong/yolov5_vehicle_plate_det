@@ -26,10 +26,12 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     # 将det 和 ocr 的 img 绝对路径写入txt中
     os.makedirs(save_dir_path, exist_ok='True')
     for d in det_dirs:
-        for image_path in glob.glob(os.path.join(d + "*.jpg")):
+        for image_path in glob.glob(os.path.join(d, "*.jpg")):
             with open(save_dir_path + 'all_det.txt', 'w') as f1:
                 for train_pwd in train_abs_img_paths:
                     f1.write(train_pwd + '\n')
+                    
+                    
     for d in ocr_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
             with open(save_dir_path + 'all_ocr.txt', 'w') as f1:
@@ -46,18 +48,19 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
         train_abs_img_paths = all_det[:int(train_percent*num_imgs)]
         test_abs_img_paths = all_det[int(train_percent*num_imgs):]
     
-        with open(os.path.join(save_dir_path + 'train.txt'), 'w') as f1:
+        with open(os.path.join(save_dir_path, 'train.txt'), 'w') as f1:
             for train_pwd in train_abs_img_paths:
                 f1.write(train_pwd)
 
-        with open(os.path.join(save_dir_path + 'test.txt'), 'w') as f1:
+        with open(os.path.join(save_dir_path, 'test.txt'), 'w') as f1:
             for test_pwd in test_abs_img_paths:
                 f1.write(test_pwd)
 
-        with open(os.path.join(save_dir_path + 'val.txt'), 'w') as f1:
+        with open(os.path.join(save_dir_path, 'val.txt'), 'w') as f1:
             for val_pwd in test_abs_img_paths:
                 f1.write(val_pwd)
-
+    
+    return det_dirs, ocr_dirs
     
 if __name__ == '__main__':
     # 设置参数
