@@ -40,7 +40,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
                 f1.write(join(save_img_path, (image_name + '.jpg')) + '\n')
 
             with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
-                f2.write(image_name.replace('.jpg', '.xml') + '\n')
+                f2.write(image_path.replace('.jpg', '.xml') + '\n')
         
         
                     

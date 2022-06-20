@@ -122,13 +122,16 @@ if __name__ == '__main__':
 
     # 设置参数
     parser = argparse.ArgumentParser()
-    parser.add_argument('--img_dir_path', type=str, default='/home/data/smoke_data/images/',
+    parser.add_argument('--img_dir_path', type=str, default='/home/data/vehicle_data/images/',
                         help='img所在文件目录路径')
-    parser.add_argument('--xml_txt_path', type=str, default='/home/data/smoke_data/xmls/', help='xml所在文件目录路径')
-    parser.add_argument('--txt_dir_path', type=str, default=r'/home/data/smoke_data/labels/',
+    parser.add_argument('--xml_txt_path', type=str, default='/home/data/vehicle_data/all_det_xmls.txt', help='xml所在文件目录路径')
+    parser.add_argument('--txt_dir_path', type=str, default=r'/home/data/vehicle_data/labels/',
                         help='需要保存txt文件目录路径')
     opt = parser.parse_args()
     
+    
+    with open(opt.xml_txt_path, 'r') as f1:
+        for xml in f1.readlines():
             
         
     for image_path in glob.glob(opt.img_dir_path + "*.jpg"):  # 每一张图片都对应一个xml文件这里写xml对应的图片的路径
