@@ -6,7 +6,7 @@ rm  -r /home/data/vehicle_data/*
 
 #创建数据集相关文件夹
 # mkdir  -p /home/data/vehicle_data/images
-mkdir  -p /home/data/vehicle_data/labels
+# mkdir  -p /home/data/vehicle_data/labels
 mkdir  -p /home/data/vehicle_data/xmls
 
 
