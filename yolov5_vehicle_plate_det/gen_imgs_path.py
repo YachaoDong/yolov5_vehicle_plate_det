@@ -3,7 +3,7 @@ from pathlib import Path
 import glob
 import random
 
-def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/labels/'):
+def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/labels/'):
     dirs = os.listdir(data_dir)
     abs_dirs = [os.path.join(data_dir, i) for i in dirs]
     det_dirs = []
@@ -32,7 +32,7 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
                     f1.write(train_pwd + '\n')
                 
                 with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
-                    f2.write(train_pwd.replace + '\n')
+                    f2.write(train_pwd.replace('.jpg', '.xml') + '\n')
                     
     for d in ocr_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
@@ -62,7 +62,7 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
             for val_pwd in test_abs_img_paths:
                 f1.write(val_pwd)
     
-    return det_dirs, ocr_dirs
+    # return det_dirs, ocr_dirs
     
 if __name__ == '__main__':
     # 设置参数
@@ -71,6 +71,9 @@ if __name__ == '__main__':
     parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/labels/', help='input img label path')
     
     opt = parser.parse_args()
+    
+    # labels文件夹中生成  all_det.txt  all_ocr.txt  all_det_xmls.txt  train.txt  test.txt  val.txt
+    gen_imgs_path(opt.data_dir, opt.save_dir_path)
 
 
             
