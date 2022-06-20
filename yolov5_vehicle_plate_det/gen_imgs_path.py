@@ -30,22 +30,21 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
         if ocr_flag:
             ocr_dirs.append[d]
     
-#     # 将det 和 ocr 的 img 绝对路径写入txt中
-#     os.makedirs(save_dir_path, exist_ok='True')
-#     for d in det_dirs:
-#         for image_path in glob.glob(os.path.join(d, "*.jpg")):
-#             for train_pwd in image_path:
-#                 with open(save_dir_path + 'all_det.txt', 'w') as f1:
-#                     f1.write(train_pwd + '\n')
-                
-#                 with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
-#                     f2.write(train_pwd.replace('.jpg', '.xml') + '\n')
+    # 将det 和 ocr 的 img 绝对路径写入txt中
+    os.makedirs(save_dir_path, exist_ok='True')
+    for d in det_dirs:
+        for image_path in glob.glob(os.path.join(d, "*.jpg")):
+            image_name = image_path.split(os.sep)[-1].split('.')[0]
+            with open(save_dir_path + 'all_det.txt', 'w') as f1:
+                f1.write(image_name + '\n')
+
+            with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
+                f2.write(image_name.replace('.jpg', '.xml') + '\n')
                     
     for d in ocr_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
             with open(save_dir_path + 'all_ocr.txt', 'w') as f1:
-                for train_pwd in image_path:
-                    f1.write(train_pwd + '\n')
+                f1.write(image_path + '\n')
     
     
     # 生成训练测试集，写入txt文件中
