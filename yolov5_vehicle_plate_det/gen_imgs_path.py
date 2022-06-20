@@ -10,7 +10,7 @@ import argparse
 import glob
 import shutil
 
-def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/'):
+def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/', save_img_path='/home/data/vehicle_data/labels/'):
     dirs = os.listdir(data_dir)
     abs_dirs = [os.path.join(data_dir, i) for i in dirs]
     det_dirs = []
@@ -32,15 +32,20 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     
     # 将det 和 ocr 的 img 绝对路径写入txt中
     os.makedirs(save_dir_path, exist_ok='True')
+    os.makedirs(save_img_path, exist_ok='True')
+    
     for d in det_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
             image_name = image_path.split(os.sep)[-1].split('.')[0]
             with open(save_dir_path + 'all_det.txt', 'w') as f1:
-                f1.write(join( ,(image_name + '.jpg')) + '\n')
+                f1.write(join(save_img_path, (image_name + '.jpg')) + '\n')
 
             with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
                 f2.write(image_name.replace('.jpg', '.xml') + '\n')
+        
+        
                     
+    
     for d in ocr_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
             with open(save_dir_path + 'all_ocr.txt', 'w') as f1:
