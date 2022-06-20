@@ -975,6 +975,7 @@ def verify_image_label(args):
                     msg = f'{prefix}WARNING: {im_file}: corrupt JPEG restored and saved'
 
         # verify labels
+        print('lb_file:', lb_file)
         if os.path.isfile(lb_file):
             nf = 1  # label found
             with open(lb_file) as f:

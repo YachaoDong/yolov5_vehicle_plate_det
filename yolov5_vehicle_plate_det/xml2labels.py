@@ -44,10 +44,10 @@ def convert(size, box):
     return (x, y, w, h)
 
 
-def convert_annotation(image_id, xml_dir_path='/project/train/src_repo/dataset/xmls/',
+def convert_annotation(image_id, xml_path='/project/train/src_repo/dataset/xmls/',
                        txt_dir_path='/project/train/src_repo/dataset/labels/'):
     # print('xml_dir_path:', xml_dir_path)
-    in_file = open(xml_dir_path, encoding='utf-8')
+    in_file = open(xml_path, encoding='utf-8')
     out_file = open(txt_dir_path + image_id + '.txt', 'w')
 
     tree = ET.parse(in_file)
