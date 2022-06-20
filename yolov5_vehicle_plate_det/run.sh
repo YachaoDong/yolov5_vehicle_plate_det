@@ -1,7 +1,7 @@
 #run.sh
 
 # 如果存在要保存的文件，提前删除文件夹
-# rm  -r /home/data/vehicle_data/*
+rm  -r /home/data/vehicle_data/*
 
  
 

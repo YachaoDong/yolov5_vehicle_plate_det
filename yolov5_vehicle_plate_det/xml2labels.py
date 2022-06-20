@@ -46,7 +46,7 @@ def convert(size, box):
 
 def convert_annotation(image_id, xml_dir_path='/project/train/src_repo/dataset/xmls/',
                        txt_dir_path='/project/train/src_repo/dataset/labels/'):
-    
+    # print('xml_dir_path:', xml_dir_path)
     in_file = open(xml_dir_path, encoding='utf-8')
     out_file = open(txt_dir_path + image_id + '.txt', 'w')
 
@@ -171,4 +171,4 @@ if __name__ == '__main__':
     with open('/home/data/vehicle_data/all_det_imgs.txt', 'r') as f1:
         for xml in f1.readlines():
             image_name = xml.strip().split(os.sep)[-1].split('.')[0]
-            convert_annotation(image_name, xml_dir_path=xml.strip(), txt_dir_path=opt.txt_dir_path)
+            convert_annotation(image_name, xml_dir_path=xml.strip().replace('.jpg', '.xml'), txt_dir_path=opt.txt_dir_path)
