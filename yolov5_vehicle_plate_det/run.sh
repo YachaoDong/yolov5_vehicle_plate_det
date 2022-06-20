@@ -10,9 +10,9 @@ mkdir  -p /project/.config/Ultralytics/
 mkdir  -p /home/data/vehicle_data/labels
 
 # 生成all imgs abs path txt
-ls /home/data/1*/*.jpg > /home/data/vehicle_data/all_det_imgs.txt
+find /home/data/1*/ -name "*.jpg" | xargs -i ls {}  > /home/data/vehicle_data/all_det_imgs.txt
 
-ls /home/data/7*/*.jpg > /home/data/vehicle_data/all_ocr_imgs.txt
+find /home/data/1*/ -name "*.jpg" | xargs -i ls {}  > /home/data/vehicle_data/all_ocr_imgs.txt
 
 
 
