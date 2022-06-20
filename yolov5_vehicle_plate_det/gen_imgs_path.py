@@ -10,7 +10,7 @@ import argparse
 import glob
 import shutil
 
-def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/', save_img_path='/home/data/vehicle_data/labels/'):
+def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/', save_img_path='/home/data/vehicle_data/images/'):
     dirs = os.listdir(data_dir)
     abs_dirs = [os.path.join(data_dir, i) for i in dirs]
     det_dirs = []
