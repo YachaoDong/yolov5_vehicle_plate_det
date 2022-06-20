@@ -34,12 +34,13 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     # os.makedirs(save_dir_path, exist_ok='True')
     
     for d in det_dirs:
-        for image_path in glob.glob(os.path.join(d, "*.jpg")):
-            image_name = image_path.split(os.sep)[-1].split('.')[0]
-            with open(save_dir_path + 'all_det.txt', 'a') as f1:
+        with open(save_dir_path + 'all_det.txt', 'w') as f1:
+            for image_path in glob.glob(os.path.join(d, "*.jpg")):
+                image_name = image_path.split(os.sep)[-1].split('.')[0]
                 f1.write(join(save_img_path, (image_name + '.jpg')) + '\n')
 
-            with open(save_dir_path + 'all_det_xmls.txt', 'a') as f2:
+        with open(save_dir_path + 'all_det_xmls.txt', 'a') as f2:
+            for image_path in glob.glob(os.path.join(d, "*.jpg")):
                 f2.write(image_path.replace('.jpg', '.xml') + '\n')
         
         
