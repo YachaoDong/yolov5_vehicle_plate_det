@@ -16,12 +16,6 @@ ls /home/data/7*/*.jpg > /home/data/vehicle_data/all_ocr_imgs.txt
 
 
 
-# sheng
-
-# 生成img 绝对路径 txt
-python /project/train/src_repo/yolov5_vehicle_plate_det/gen_imgs_path.py
-
-
 
 # xml转txt labels
 python /project/train/src_repo/yolov5_vehicle_plate_det/xml2labels.py

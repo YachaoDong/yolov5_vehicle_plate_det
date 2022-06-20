@@ -115,6 +115,31 @@ def convert_annotation(image_id, xml_dir_path='/project/train/src_repo/dataset/x
         
         
 
+def gen_imgs_path():
+    
+    
+    # 生成训练测试集，写入txt文件中
+    with open('/home/data/vehicle_data/all_det_imgs.txt', 'r') as f1:
+        all_det = f1.readlines()
+        random.shuffle(all_det)
+        
+        num_imgs = len(all_det)
+        train_percent = 0.9
+        train_abs_img_paths = all_det[:int(train_percent*num_imgs)]
+        test_abs_img_paths = all_det[int(train_percent*num_imgs):]
+    
+        with open('/home/data/vehicle_data/train.txt', 'w') as f1:
+            for train_pwd in train_abs_img_paths:
+                f1.write(train_pwd)
+
+        with open('/home/data/vehicle_data/test.txt', 'w') as f1:
+            for test_pwd in test_abs_img_paths:
+                f1.write(test_pwd)
+
+        with open('/home/data/vehicle_data/val.txt', 'w') as f1:
+            for val_pwd in test_abs_img_paths:
+                f1.write(val_pwd)
+        
 
 if __name__ == '__main__':
     
@@ -131,7 +156,12 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     
     
-    with open(opt.xml_txt_path, 'r') as f1:
+    gen_imgs_path()
+    
+    
+    
+    
+    with open('/home/data/vehicle_data/all_det_imgs.txt', 'r') as f1:
         for xml in f1.readlines():
             image_name = xml.strip().split(os.sep)[-1].split('.')[0]
             convert_annotation(image_name, xml_dir_path=xml.strip(), txt_dir_path=opt.txt_dir_path)
