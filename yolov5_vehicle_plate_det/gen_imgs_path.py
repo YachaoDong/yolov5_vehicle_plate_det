@@ -31,8 +31,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
             ocr_dirs.append[d]
     
     # 将det 和 ocr 的 img 绝对路径写入txt中
-    os.makedirs(save_dir_path, exist_ok='True')
-    os.makedirs(save_img_path, exist_ok='True')
+    # os.makedirs(save_dir_path, exist_ok='True')
     
     for d in det_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):

@@ -9,11 +9,13 @@ mkdir  -p /home/data/vehicle_data/images
 mkdir  -p /home/data/vehicle_data/labels
 mkdir  -p /home/data/vehicle_data/xmls
 
+# 生成img 绝对路径 txt
+python gen_imgs_path.py
 
 # 拷贝图像
 cp /home/data/*/*.jpg  /home/data/smoke_data/images/
-# 拷贝xml
-cp /home/data/*/*.xml  /home/data/smoke_data/xmls/
+# # 拷贝xml
+# cp /home/data/*/*.xml  /home/data/smoke_data/xmls/
 
 # xml转txt labels
 python /project/train/src_repo/yolov5_smoke/xml2labels.py
