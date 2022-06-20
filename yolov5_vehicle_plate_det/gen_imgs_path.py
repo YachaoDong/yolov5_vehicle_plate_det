@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import glob
 
-def get_imgs_path(data_dir='/home/data/', save_dir_path):
+def get_imgs_path(data_dir='/home/data/', save_dir_path=''):
     dirs = os.listdir(data_dir)
     abs_dirs = [os.path.join(data_dir, i) for i in dirs]
     det_dirs = []
@@ -31,7 +31,7 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path):
                 for train_pwd in train_abs_img_paths:
                     f1.write(train_pwd + '\n')
             
-    
+
             
                 
             
