@@ -36,7 +36,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
             image_name = image_path.split(os.sep)[-1].split('.')[0]
             with open(save_dir_path + 'all_det.txt', 'w') as f1:
-                f1.write(image_name + '\n')
+                f1.write(join( ,(image_name + '.jpg')) + '\n')
 
             with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
                 f2.write(image_name.replace('.jpg', '.xml') + '\n')
