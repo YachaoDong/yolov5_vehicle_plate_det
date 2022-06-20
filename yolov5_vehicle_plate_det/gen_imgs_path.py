@@ -36,10 +36,10 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     for d in det_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
             image_name = image_path.split(os.sep)[-1].split('.')[0]
-            with open(save_dir_path + 'all_det.txt', 'w') as f1:
+            with open(save_dir_path + 'all_det.txt', 'a') as f1:
                 f1.write(join(save_img_path, (image_name + '.jpg')) + '\n')
 
-            with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
+            with open(save_dir_path + 'all_det_xmls.txt', 'a') as f2:
                 f2.write(image_path.replace('.jpg', '.xml') + '\n')
         
         
@@ -47,7 +47,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     
     for d in ocr_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
-            with open(save_dir_path + 'all_ocr.txt', 'w') as f1:
+            with open(save_dir_path + 'all_ocr.txt', 'a') as f1:
                 f1.write(image_path + '\n')
     
     
