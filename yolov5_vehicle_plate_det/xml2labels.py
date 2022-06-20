@@ -127,6 +127,9 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     
     with open(opt.xml_txt_path, 'r') as f1:
+        for line in f1.readlines():
+            
+            
         
     for image_path in glob.glob(opt.img_dir_path + "*.jpg"):  # 每一张图片都对应一个xml文件这里写xml对应的图片的路径
         image_name = image_path.split(os.sep)[-1].split('.')[0]
