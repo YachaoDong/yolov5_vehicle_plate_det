@@ -68,7 +68,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
             for val_pwd in test_abs_img_paths:
                 f1.write(val_pwd)
     
-    # return det_dirs, ocr_dirs
+    return det_dirs, ocr_dirs
 
 
 # 将xml转换为yolov5labels
@@ -81,34 +81,32 @@ vehicle_color = ['white', 'silver', 'grey', 'black', 'red', 'blue', 'yellow', 'g
 
 abs_path = os.getcwd()
 
-
-def convert(size, box):
-    # box: xmin, xmax, ymin, ymax
-    dw = 1. / (size[0])
-    dh = 1. / (size[1])
-    x = (box[0] + box[1]) / 2.0 - 1
-    y = (box[2] + box[3]) / 2.0 - 1
-    w = box[1] - box[0]
-    h = box[3] - box[2]
-    x = x * dw
-    w = w * dw
-    y = y * dh
-    h = h * dh
-    return (x, y, w, h)
-
-
 def convert_annotation(xml_path,
                        txt_dir_path='/project/train/src_repo/dataset/labels/'):
     in_file = open(xml_path, encoding='utf-8')
     xml_p = Path(xml_path)
-    out_file = open(txt_dir_path + image_id + '.txt', 'w')
+    out_file = open(txt_dir_path + xml_p.stem + '.txt', 'w')
 
     tree = ET.parse(in_file)
     root = tree.getroot()
     size = root.find('size')
     w = int(size.find('width').text)
     h = int(size.find('height').text)
-
+    
+    def convert(size, box):
+        # box: xmin, xmax, ymin, ymax
+        dw = 1. / (size[0])
+        dh = 1. / (size[1])
+        x = (box[0] + box[1]) / 2.0 - 1
+        y = (box[2] + box[3]) / 2.0 - 1
+        w = box[1] - box[0]
+        h = box[3] - box[2]
+        x = x * dw
+        w = w * dw
+        y = y * dh
+        h = h * dh
+        return (x, y, w, h)
+    
     # car bbox obj
     for obj in root.iter('object'):
         # difficult = obj.find('difficult').text
