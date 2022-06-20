@@ -400,7 +400,7 @@ class LoadStreams:
 def img2label_paths(img_paths):
     # Define label paths as a function of image paths
     
-    return ['/project/train/src_repo/dataset/labels/' + x.strip().split(os.sep)[-1].split('.')[0] + '.txt' for x in img_paths]    
+    return ['/home/data/vehicle_data/labels/' + x.strip().split(os.sep)[-1].split('.')[0] + '.txt' for x in img_paths]    
 
 def ori_label_paths(img_paths):
     # Define label paths as a function of image paths
@@ -975,7 +975,7 @@ def verify_image_label(args):
                     msg = f'{prefix}WARNING: {im_file}: corrupt JPEG restored and saved'
 
         # verify labels
-        print('lb_file:', lb_file)
+        # print('lb_file:', lb_file)
         if os.path.isfile(lb_file):
             nf = 1  # label found
             with open(lb_file) as f:

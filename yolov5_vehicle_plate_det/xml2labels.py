@@ -171,4 +171,4 @@ if __name__ == '__main__':
     with open('/home/data/vehicle_data/all_det_imgs.txt', 'r') as f1:
         for xml in f1.readlines():
             image_name = xml.strip().split(os.sep)[-1].split('.')[0]
-            convert_annotation(image_name, xml_dir_path=xml.strip().replace('.jpg', '.xml'), txt_dir_path=opt.txt_dir_path)
+            convert_annotation(image_name, xml_path=xml.strip().replace('.jpg', '.xml'), txt_dir_path=opt.txt_dir_path)
