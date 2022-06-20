@@ -1,7 +1,7 @@
 
-train: /home/data/smoke_data/train.txt
-val: /home/data/smoke_data/val.txt
-test: /home/data/smoke_data/test.txt
+train: /home/data/vehicle_data/train.txt
+val: /home/data/vehicle_data/val.txt
+test: /home/data/vehicle_data/test.txt
 
 
 nc: 13  # number of classes 13

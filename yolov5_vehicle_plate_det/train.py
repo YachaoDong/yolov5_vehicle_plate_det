@@ -495,7 +495,7 @@ def parse_opt(known=False):
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', type=str, default='/project/train/models/yolov5l.pt', help='initial weights path')
     parser.add_argument('--cfg', type=str, default='', help='model.yaml path')
-    parser.add_argument('--data', type=str, default=ROOT / 'data/vehicle_test.yaml', help='dataset.yaml path')
+    parser.add_argument('--data', type=str, default=ROOT / 'data/vehicle.yaml', help='dataset.yaml path')
     parser.add_argument('--hyp', type=str, default=ROOT / 'data/hyps/hyp.scratch-low-vehicle.yaml', help='hyperparameters path')
     parser.add_argument('--epochs', type=int, default=1)
     parser.add_argument('--batch-size', type=int, default=8, help='total batch size for all GPUs, -1 for autobatch')
@@ -515,9 +515,9 @@ def parse_opt(known=False):
     parser.add_argument('--single-cls', action='store_true', help='train multi-class data as single-class')
     parser.add_argument('--optimizer', type=str, choices=['SGD', 'Adam', 'AdamW'], default='SGD', help='optimizer')
     parser.add_argument('--sync-bn', action='store_true', help='use SyncBatchNorm, only available in DDP mode')
-    parser.add_argument('--workers', type=int, default=0, help='max dataloader workers (per RANK in DDP mode)')
+    parser.add_argument('--workers', type=int, default=8, help='max dataloader workers (per RANK in DDP mode)')
     
-    parser.add_argument('--project', default='/project/train/src_repo/yolov5_smoke/', help='save to project/name')
+    parser.add_argument('--project', default='/project/train/models/', help='save to project/name')
     # parser.add_argument('--save_weights_dir', default='/project/train/models/614/', help='save to project/name')
     
     parser.add_argument('--name', default='exp', help='save to project/name')
