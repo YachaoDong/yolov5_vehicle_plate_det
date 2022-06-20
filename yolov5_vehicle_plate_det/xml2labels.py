@@ -39,7 +39,8 @@ def convert(size, box):
 
 def convert_annotation(image_id, xml_dir_path='/project/train/src_repo/dataset/xmls/',
                        txt_dir_path='/project/train/src_repo/dataset/labels/'):
-    in_file = open(xml_dir_path + image_id + '.xml', encoding='utf-8')
+    
+    in_file = open(xml_dir_path, encoding='utf-8')
     out_file = open(txt_dir_path + image_id + '.txt', 'w')
 
     tree = ET.parse(in_file)
@@ -132,8 +133,5 @@ if __name__ == '__main__':
     
     with open(opt.xml_txt_path, 'r') as f1:
         for xml in f1.readlines():
-            
-        
-    for image_path in glob.glob(opt.img_dir_path + "*.jpg"):  # 每一张图片都对应一个xml文件这里写xml对应的图片的路径
-        image_name = image_path.split(os.sep)[-1].split('.')[0]
-        convert_annotation(image_name, xml_dir_path=abs_xml_path, txt_dir_path=opt.txt_dir_path)
+            image_name = xml.strip().split(os.sep)[-1].split('.')[0]
+            convert_annotation(image_name, xml_dir_path=xml.strip(), txt_dir_path=opt.txt_dir_path)
