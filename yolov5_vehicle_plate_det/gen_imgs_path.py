@@ -18,6 +18,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     
     # 获得data目录下哪些是检测数据集的目录，哪些是ocr数据集目录
     for d in abs_dirs:
+        print('dddd:', d)
         files = os.listdir(d)
         
         ocr_flag = True
