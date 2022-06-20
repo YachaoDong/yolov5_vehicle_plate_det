@@ -33,4 +33,7 @@ python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 
 
 python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 16 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
 
+ls /home/data/
+ls /home/data/vehicle_data/images
+
 
