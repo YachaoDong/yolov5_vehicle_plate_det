@@ -12,6 +12,13 @@ from os.path import join
 import argparse
 import glob
 
+from pathlib import Path
+import glob
+import random
+
+
+
+
 # box: [0,6], line:[6], key_point:[7, 14]
 classes = ['truck', 'van', 'car', 'slagcar', 'bus', 'fire_truck',
            'police_car', 'ambulance',  'SUV', 'microbus', 'unknown_vehicle',
