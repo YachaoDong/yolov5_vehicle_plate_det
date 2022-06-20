@@ -27,15 +27,17 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     os.makedirs(save_dir_path, exist_ok='True')
     for d in det_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
-            with open(save_dir_path + 'all_det.txt', 'w') as f1:
-                for train_pwd in train_abs_img_paths:
+            for train_pwd in image_path:
+                with open(save_dir_path + 'all_det.txt', 'w') as f1:
                     f1.write(train_pwd + '\n')
-                    
+                
+                with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
+                    f2.write(train_pwd.replace + '\n')
                     
     for d in ocr_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
             with open(save_dir_path + 'all_ocr.txt', 'w') as f1:
-                for train_pwd in train_abs_img_paths:
+                for train_pwd in image_path:
                     f1.write(train_pwd + '\n')
     
     # 生成训练测试集，写入txt文件中
