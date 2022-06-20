@@ -68,7 +68,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
             for val_pwd in test_abs_img_paths:
                 f1.write(val_pwd)
     
-    return det_dirs, ocr_dirs
+    # return det_dirs, ocr_dirs
 
 
 # 将xml转换为yolov5labels
@@ -176,14 +176,22 @@ def convert_annotation(xml_path,
 
 if __name__ == '__main__':
     # 设置参数
+    # 生成img xml 路径参数
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default='/home/data/', help='input img label path')
     parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/labels/', help='input img label path')
+    
+    # xml 转 yolov5 labels 参数
+    parser.add_argument('--xml_txt_path', type=str, default='/home/data/smoke_data/xmls/', help='保存xml绝对路径的txt路径')
+    parser.add_argument('--txt_dir_path', type=str, default=r'/home/data/vehicle_data/labels/', help='需要保存txt文件目录路径')
+    
     
     opt = parser.parse_args()
     
     # labels文件夹中生成  all_det.txt  all_ocr.txt  all_det_xmls.txt  train.txt  test.txt  val.txt
     gen_imgs_path(opt.data_dir, opt.save_dir_path)
+    
+    with open()
 
 
             
