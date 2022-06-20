@@ -111,6 +111,9 @@ def convert_annotation(image_id, xml_dir_path='/project/train/src_repo/dataset/x
         # 换行
         out_file.write('\n')
 
+        
+        
+
 
 if __name__ == '__main__':
     

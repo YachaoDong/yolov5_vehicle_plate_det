@@ -8,6 +8,7 @@ from os import listdir, getcwd
 from os.path import join
 import argparse
 import glob
+import shutil
 
 def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/'):
     dirs = os.listdir(data_dir)
@@ -23,7 +24,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
         for f in files:
             p = Path(f)
             if p.suffix == '.xml':
-                det_files.append(d)
+                det_dirs.append(d)
                 ocr_flag = False
                 break
         if ocr_flag:
@@ -48,26 +49,26 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
     
     
     # 生成训练测试集，写入txt文件中
-#     with open(os.path.join(save_dir_path, 'all_det.txt')) as f1:
-#         all_det = f1.readlines()
-#         random.shuffle(all_det)
+    with open(os.path.join(save_dir_path, 'all_det.txt')) as f1:
+        all_det = f1.readlines()
+        random.shuffle(all_det)
         
-#         num_imgs = len(all_det)
-#         train_percent = 0.9
-#         train_abs_img_paths = all_det[:int(train_percent*num_imgs)]
-#         test_abs_img_paths = all_det[int(train_percent*num_imgs):]
+        num_imgs = len(all_det)
+        train_percent = 0.9
+        train_abs_img_paths = all_det[:int(train_percent*num_imgs)]
+        test_abs_img_paths = all_det[int(train_percent*num_imgs):]
     
-#         with open(os.path.join(save_dir_path, 'train.txt'), 'w') as f1:
-#             for train_pwd in train_abs_img_paths:
-#                 f1.write(train_pwd)
+        with open(os.path.join(save_dir_path, 'train.txt'), 'w') as f1:
+            for train_pwd in train_abs_img_paths:
+                f1.write(train_pwd)
 
-#         with open(os.path.join(save_dir_path, 'test.txt'), 'w') as f1:
-#             for test_pwd in test_abs_img_paths:
-#                 f1.write(test_pwd)
+        with open(os.path.join(save_dir_path, 'test.txt'), 'w') as f1:
+            for test_pwd in test_abs_img_paths:
+                f1.write(test_pwd)
 
-#         with open(os.path.join(save_dir_path, 'val.txt'), 'w') as f1:
-#             for val_pwd in test_abs_img_paths:
-#                 f1.write(val_pwd)
+        with open(os.path.join(save_dir_path, 'val.txt'), 'w') as f1:
+            for val_pwd in test_abs_img_paths:
+                f1.write(val_pwd)
     
     return det_dirs, ocr_dirs
 
