@@ -33,7 +33,7 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/labels/'):
                     f1.write(train_pwd + '\n')
                     
     with open(save_dir_path + 'all_det.txt') as f1:
-        for img_path in f.read().strip
+        lb = [x.split() for x in f.read().strip().splitlines() if len(x)]
     
             
 
