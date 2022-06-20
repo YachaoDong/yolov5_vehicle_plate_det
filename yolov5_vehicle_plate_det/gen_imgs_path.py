@@ -9,7 +9,7 @@ from os.path import join
 import argparse
 import glob
 
-def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/labels/'):
+def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/'):
     dirs = os.listdir(data_dir)
     abs_dirs = [os.path.join(data_dir, i) for i in dirs]
     det_dirs = []
@@ -179,7 +179,7 @@ if __name__ == '__main__':
     # 生成img xml 路径参数
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_dir', type=str, default='/home/data/', help='input img label path')
-    parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/labels/', help='input img label path')
+    parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/', help='input img label path')
     
     # xml 转 yolov5 labels 参数
     parser.add_argument('--txt_dir_path', type=str, default=r'/home/data/vehicle_data/labels/', help='需要保存txt文件目录路径')
