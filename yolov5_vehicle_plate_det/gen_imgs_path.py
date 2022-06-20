@@ -3,11 +3,13 @@ from pathlib import Path
 import glob
 import random
 
-def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/labels/'):
+def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data/labels/'):
     dirs = os.listdir(data_dir)
     abs_dirs = [os.path.join(data_dir, i) for i in dirs]
     det_dirs = []
     ocr_dirs = []
+    
+    # 获得data目录下哪些是检测数据集的目录，哪些是ocr数据集目录
     for d in abs_dirs:
         files = os.listdir(d)
         
@@ -21,7 +23,7 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/labels/'):
         if ocr_flag:
             ocr_dirs.append[d]
     
-    # 获得data目录下哪些是
+    # 将det 和 ocr 的 img 绝对路径写入txt中
     os.makedirs(save_dir_path, exist_ok='True')
     for d in det_dirs:
         for image_path in glob.glob(os.path.join(d + "*.jpg")):
@@ -29,13 +31,13 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/labels/'):
                 for train_pwd in train_abs_img_paths:
                     f1.write(train_pwd + '\n')
     for d in ocr_dirs:
-        for image_path in glob.glob(os.path.join(d + "*.jpg")):
+        for image_path in glob.glob(os.path.join(d, "*.jpg")):
             with open(save_dir_path + 'all_ocr.txt', 'w') as f1:
                 for train_pwd in train_abs_img_paths:
                     f1.write(train_pwd + '\n')
     
     # 生成训练测试集，写入txt文件中
-    with open(os.path.join(save_dir_path + 'all_det.txt')) as f1:
+    with open(os.path.join(save_dir_path, 'all_det.txt')) as f1:
         all_det = f1.readlines()
         random.shuffle(all_det)
         
@@ -57,7 +59,14 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/labels/'):
                 f1.write(val_pwd)
 
     
-            
+if __name__ == '__main__':
+    # 设置参数
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data_dir', type=str, default='/home/data/', help='input img label path')
+    parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/labels/', help='input img label path')
+    
+    opt = parser.parse_args()
+
 
             
                 
