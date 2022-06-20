@@ -74,7 +74,7 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
             for val_pwd in test_abs_img_paths:
                 f1.write(val_pwd)
     
-    return det_dirs, ocr_dirs
+    # return det_dirs, ocr_dirs
 
 
 
