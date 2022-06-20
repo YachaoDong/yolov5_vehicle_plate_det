@@ -29,16 +29,16 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
         if ocr_flag:
             ocr_dirs.append[d]
     
-    # 将det 和 ocr 的 img 绝对路径写入txt中
-    os.makedirs(save_dir_path, exist_ok='True')
-    for d in det_dirs:
-        for image_path in glob.glob(os.path.join(d, "*.jpg")):
-            for train_pwd in image_path:
-                with open(save_dir_path + 'all_det.txt', 'w') as f1:
-                    f1.write(train_pwd + '\n')
+#     # 将det 和 ocr 的 img 绝对路径写入txt中
+#     os.makedirs(save_dir_path, exist_ok='True')
+#     for d in det_dirs:
+#         for image_path in glob.glob(os.path.join(d, "*.jpg")):
+#             for train_pwd in image_path:
+#                 with open(save_dir_path + 'all_det.txt', 'w') as f1:
+#                     f1.write(train_pwd + '\n')
                 
-                with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
-                    f2.write(train_pwd.replace('.jpg', '.xml') + '\n')
+#                 with open(save_dir_path + 'all_det_xmls.txt', 'w') as f2:
+#                     f2.write(train_pwd.replace('.jpg', '.xml') + '\n')
                     
     for d in ocr_dirs:
         for image_path in glob.glob(os.path.join(d, "*.jpg")):
@@ -46,29 +46,30 @@ def gen_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/vehicle_data
                 for train_pwd in image_path:
                     f1.write(train_pwd + '\n')
     
+    
     # 生成训练测试集，写入txt文件中
-    with open(os.path.join(save_dir_path, 'all_det.txt')) as f1:
-        all_det = f1.readlines()
-        random.shuffle(all_det)
+#     with open(os.path.join(save_dir_path, 'all_det.txt')) as f1:
+#         all_det = f1.readlines()
+#         random.shuffle(all_det)
         
-        num_imgs = len(all_det)
-        train_percent = 0.9
-        train_abs_img_paths = all_det[:int(train_percent*num_imgs)]
-        test_abs_img_paths = all_det[int(train_percent*num_imgs):]
+#         num_imgs = len(all_det)
+#         train_percent = 0.9
+#         train_abs_img_paths = all_det[:int(train_percent*num_imgs)]
+#         test_abs_img_paths = all_det[int(train_percent*num_imgs):]
     
-        with open(os.path.join(save_dir_path, 'train.txt'), 'w') as f1:
-            for train_pwd in train_abs_img_paths:
-                f1.write(train_pwd)
+#         with open(os.path.join(save_dir_path, 'train.txt'), 'w') as f1:
+#             for train_pwd in train_abs_img_paths:
+#                 f1.write(train_pwd)
 
-        with open(os.path.join(save_dir_path, 'test.txt'), 'w') as f1:
-            for test_pwd in test_abs_img_paths:
-                f1.write(test_pwd)
+#         with open(os.path.join(save_dir_path, 'test.txt'), 'w') as f1:
+#             for test_pwd in test_abs_img_paths:
+#                 f1.write(test_pwd)
 
-        with open(os.path.join(save_dir_path, 'val.txt'), 'w') as f1:
-            for val_pwd in test_abs_img_paths:
-                f1.write(val_pwd)
+#         with open(os.path.join(save_dir_path, 'val.txt'), 'w') as f1:
+#             for val_pwd in test_abs_img_paths:
+#                 f1.write(val_pwd)
     
-    # return det_dirs, ocr_dirs
+    return det_dirs, ocr_dirs
 
 
 
