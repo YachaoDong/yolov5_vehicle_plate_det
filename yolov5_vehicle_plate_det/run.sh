@@ -16,6 +16,7 @@ python /project/train/src_repo/yolov5_vehicle_plate_det/gen_imgs_path.py
 
 # 拷贝图像
 cp -r /home/data/*/*.jpg  /home/data/vehicle_data/images/
+ls /home/data/vehicle_data/images/
 # # 拷贝xml
 # cp /home/data/*/*.xml  /home/data/smoke_data/xmls/
 
@@ -36,5 +37,6 @@ python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 
 
 ls /home/data/
 ls /home/data/vehicle_data/images
-
+ls /home/data/vehicle_data/labels
+ls /home/data/vehicle_data/
 
