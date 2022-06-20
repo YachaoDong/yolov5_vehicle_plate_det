@@ -172,3 +172,4 @@ __pycache__/
 core.*#
 .ipynb_checkpoints/
 
+yolov5s.pt

@@ -26,8 +26,8 @@ python /project/train/src_repo/yolov5_vehicle_plate_det/xml2labels.py
 
 #执行YOLOV5训练脚本
 # pip install -r /project/train/src_repo/yolov5_vehicle_plate_det/requirements.txt
-python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 32 --weights /project/train/models/yolov5s.pt  --epochs 100 --workers 4
+python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 32 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
 
-python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 16 --weights /project/train/models/yolov5s.pt  --epochs 100 --workers 4
+python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 16 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
 
 
