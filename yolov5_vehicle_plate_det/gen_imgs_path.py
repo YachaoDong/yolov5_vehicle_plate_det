@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import glob
+import random
 
 def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/labels/'):
     dirs = os.listdir(data_dir)
@@ -33,7 +34,9 @@ def get_imgs_path(data_dir='/home/data/', save_dir_path='/home/data/labels/'):
                     f1.write(train_pwd + '\n')
                     
     with open(save_dir_path + 'all_det.txt') as f1:
-        lb = [x.split() for x in f.read().strip().splitlines() if len(x)]
+        all_det = f1.readlines()
+        random.shuffle(all_det)
+        
     
             
 
