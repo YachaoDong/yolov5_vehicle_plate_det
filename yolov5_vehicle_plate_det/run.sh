@@ -7,24 +7,24 @@
 
 #创建数据集相关文件夹
 mkdir  -p /project/.config/Ultralytics/
-# mkdir  -p /home/data/vehicle_data/images
 mkdir  -p /home/data/vehicle_data/labels
-# mkdir  -p /home/data/vehicle_data/xmls
+
+# 生成all imgs abs path txt
+ls /home/data/1*/.jpg > /home/data/vehicle_data/all_det.txt
+
+
+
+# sheng
 
 # 生成img 绝对路径 txt
 python /project/train/src_repo/yolov5_vehicle_plate_det/gen_imgs_path.py
 
-# 拷贝图像
-# cp -r /home/data/*/*.jpg  /home/data/vehicle_data/images/
 
-# # 拷贝xml
-# cp /home/data/*/*.xml  /home/data/smoke_data/xmls/
 
 # xml转txt labels
 python /project/train/src_repo/yolov5_vehicle_plate_det/xml2labels.py
 
-#数据集划分、转换, 生成训练测试 txt文件
-# python /project/train/src_repo/yolov5_smoke/split_train_val.py
+
 
 #执行YOLOV5训练脚本
 # pip install -r /project/train/src_repo/yolov5_vehicle_plate_det/requirements.txt
