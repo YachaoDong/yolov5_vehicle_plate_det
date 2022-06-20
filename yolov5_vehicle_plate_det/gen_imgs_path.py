@@ -83,7 +83,6 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default='/home/data/', help='input img label path')
     parser.add_argument('--save_dir_path', type=str, default='/home/data/vehicle_data/', help='input img label path')
     
-
     
     
     opt = parser.parse_args()
