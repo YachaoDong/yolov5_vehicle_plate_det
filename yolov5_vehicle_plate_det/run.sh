@@ -29,7 +29,7 @@ cp /project/train/src_repo/yolov5_vehicle_plate_det/Arial.ttf  /project/.config/
 
 python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 32 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
 
-python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 16 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
+# python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 16 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
 
 
 
