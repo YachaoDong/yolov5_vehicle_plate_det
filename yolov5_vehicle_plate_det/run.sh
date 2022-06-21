@@ -27,7 +27,7 @@ python /project/train/src_repo/yolov5_vehicle_plate_det/xml2labels.py
 
 cp /project/train/src_repo/yolov5_vehicle_plate_det/Arial.ttf  /project/.config/Ultralytics/
 
-python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 32 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
+python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 32 --weights /project/train/models/exp/weights/last.pt  --epochs 100 --workers 4
 
 # python /project/train/src_repo/yolov5_vehicle_plate_det/train.py   --batch-size 16 --weights /project/train/src_repo/yolov5_vehicle_plate_det/yolov5s.pt  --epochs 100 --workers 4
 
