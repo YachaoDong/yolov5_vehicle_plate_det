@@ -1,0 +1,2 @@
+Requirement already satisfied: python-Levenshtein in d:\codeapp\miniconda\winminiconda38\envs\yachao\lib\site-packages (0.12.2)
+Requirement already satisfied: setuptools in d:\codeapp\miniconda\winminiconda38\envs\yachao\lib\site-packages (from python-Levenshtein) (52.0.0.post20210125)
