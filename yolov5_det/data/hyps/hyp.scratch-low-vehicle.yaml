@@ -13,9 +13,9 @@ warmup_bias_lr: 0.1  # warmup initial bias lr
 
 box: 0.05  # box loss gain
 cls: 0.5  # cls loss gain
-obj_color: 0.5  # obj color loss gain
+obj_color: 1  # obj color loss gain
 cls_pw: 1.0  # cls BCELoss positive_weight
-obj: 1.0  # obj loss gain (scale with pixels)
+obj: 0.7  # obj loss gain (scale with pixels)
 obj_pw: 1.0  # obj BCELoss positive_weight
 iou_t: 0.20  # IoU training threshold
 anchor_t: 4.0  # anchor-multiple threshold
@@ -31,6 +31,6 @@ shear: 0.0  # image shear (+/- deg)
 perspective: 0.0  # image perspective (+/- fraction), range 0-0.001
 flipud: 0.0  # image flip up-down (probability)
 fliplr: 0.5  # image flip left-right (probability)
-mosaic: 1.0  # image mosaic (probability)
+mosaic: 0.8  # image mosaic (probability)
 mixup: 0.1  # image mixup (probability)
 copy_paste: 0.1  # segment copy-paste (probability)
