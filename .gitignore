@@ -173,3 +173,5 @@ core.*#
 .ipynb_checkpoints/
 
 yolov5s.pt
+
+ev_sdk/model1/*
