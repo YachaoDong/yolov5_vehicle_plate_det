@@ -57,23 +57,48 @@ class Detect(nn.Module):
         z = []  # inference output
         for i in range(self.nl):
             x[i] = self.m[i](x[i])  # conv
+            # export change
+            # bs, _, ny, nx = x[i].shape  # x(bs,255,20,20) to x(bs,3,20,20,85)
+            # x[i] = x[i].view(bs, self.na, self.no, ny, nx).permute(0, 1, 3, 4, 2).contiguous()
+
             bs, _, ny, nx = x[i].shape  # x(bs,255,20,20) to x(bs,3,20,20,85)
+            bs = -1
+            ny = int(ny)
+            nx = int(nx)
             x[i] = x[i].view(bs, self.na, self.no, ny, nx).permute(0, 1, 3, 4, 2).contiguous()
+            # export change
+
+
 
             if not self.training:  # inference
+                # export change
+                # if self.onnx_dynamic or self.grid[i].shape[2:4] != x[i].shape[2:4]:
+                #     self.grid[i], self.anchor_grid[i] = self._make_grid(nx, ny, i)
                 if self.onnx_dynamic or self.grid[i].shape[2:4] != x[i].shape[2:4]:
                     self.grid[i], self.anchor_grid[i] = self._make_grid(nx, ny, i)
+                # disconnect for pytorch trace
+                anchor_grid = (self.anchors[i].clone() * self.stride[i]).view(1, -1, 1, 1, 2)
+                # export change
 
                 y = x[i].sigmoid()
                 if self.inplace:
                     y[..., 0:2] = (y[..., 0:2] * 2 + self.grid[i]) * self.stride[i]  # xy
-                    y[..., 2:4] = (y[..., 2:4] * 2) ** 2 * self.anchor_grid[i]  # wh
+                    # export change
+                    # y[..., 2:4] = (y[..., 2:4] * 2) ** 2 * self.anchor_grid[i]  # wh
+                    y[..., 2:4] = (y[..., 2:4] * 2) ** 2 * anchor_grid  # wh
+                    # export change
                 else:  # for YOLOv5 on AWS Inferentia https://github.com/ultralytics/yolov5/pull/2953
-                    xy, wh, conf = y.split((2, 2, self.nc + 1), 4)  # y.tensor_split((2, 4, 5), 4)  # torch 1.8.0
+                    xy, wh, conf = y.split((2, 2, self.nc+self.nco + 1), 4)  # y.tensor_split((2, 4, 5), 4)  # torch 1.8.0
                     xy = (xy * 2 + self.grid[i]) * self.stride[i]  # xy
-                    wh = (wh * 2) ** 2 * self.anchor_grid[i]  # wh
+                    # export change
+                    #wh = (wh * 2) ** 2 * self.anchor_grid[i]  # wh
+                    wh = (wh * 2) ** 2 * anchor_grid  # wh
+                    # export change
                     y = torch.cat((xy, wh, conf), 4)
-                z.append(y.view(bs, -1, self.no))
+                # export change
+                # z.append(y.view(bs, -1, self.no))
+                z.append(y.view(bs, self.na * ny * nx, self.no))
+                # export change
 
         return x if self.training else (torch.cat(z, 1),) if self.export else (torch.cat(z, 1), x)
 
