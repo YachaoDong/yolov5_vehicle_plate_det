@@ -196,101 +196,24 @@ private:
     std::vector<std::string> pred_frames_vector;
     
     // 获得连续相同元素的长度
-    int getMaxSameSeq(std::vector<std::string> pred_frames_vector, int &max_i)
-    {
-      int count1=0,count2=0;
-      for(int i=0; i<pred_frames_vector.size(); i++)
-      {
-        std::cout << "pred_frames_vector:" << pred_frames_vector[i] <<endl;
-        int j=i;
-        while(j < pred_frames_vector.size())
-        {
-            if(pred_frames_vector[i]==pred_frames_vector[j])
-                count1++;
-            else{
-                break;
-            }
-            j++;
-        }
-        if(count2<count1)
-        {
-            count2=count1;
-            max_i = j-1;
-        }
-        count1=0;
-      }
-      return count2;
-    }
-    
+    int getMaxSameSeq(std::vector<std::string> pred_frames_vector, int &max_i);
+
     // 对vector<Yolo::BoxArray>按照conf从高到低排序
     static bool GreaterSort (Yolo::Box a, Yolo::Box b) {
-        return (a.confidence > b.confidence); 
-    }
-    
-    // 分割字符串
-    void stringSplit(const string& s, vector<string>& tokens, char delim = '_') {
-        tokens.clear();
-        auto string_find_first_not = [s, delim](size_t pos = 0) -> size_t {
-            for (size_t i = pos; i < s.size(); i++) {
-                if (s[i] != delim) return i;
-            }
-            return string::npos;
-        };   
-        size_t lastPos = string_find_first_not(0);
-        size_t pos = s.find(delim, lastPos);
-        while (lastPos != string::npos) {
-            std::cout<<"s.substr(lastPos, pos - lastPos):" <<s.substr(lastPos, pos - lastPos) <<std::endl;
-            tokens.emplace_back(s.substr(lastPos, pos - lastPos));
-            lastPos = string_find_first_not(pos);
-            pos = s.find(delim, lastPos);
-        }
-    }
-    
-    
-    // ocr 推理时识别调用
-    std::vector<std::vector<OCRPredictResult>>
-        mOCR(cv::Mat srcimg, bool det, bool rec,
-                   bool cls) {
-        std::vector<double> time_info_det = {0, 0, 0};
-        std::vector<double> time_info_rec = {0, 0, 0};
-        std::vector<double> time_info_cls = {0, 0, 0};
-        std::vector<std::vector<OCRPredictResult>> ocr_results;
-        if (!det) {
-            std::vector<OCRPredictResult> ocr_result;
-            // read image
-            std::vector<cv::Mat> img_list;
-            img_list.push_back(srcimg);
-            OCRPredictResult res;
-            ocr_result.push_back(res);
-            if (rec) {
-                this->mREC(img_list, ocr_result, time_info_rec);
-            }
-            for (int i = 0; i < 1; ++i) {
-                std::vector<OCRPredictResult> ocr_result_tmp;
-                ocr_result_tmp.push_back(ocr_result[i]);
-                ocr_results.push_back(ocr_result_tmp);
-            }
-        }
-        return ocr_results;
+        return (a.confidence > b.confidence);
     }
 
-  // rec 被mOCR调用，推理代码中不调用
-  void mREC(std::vector<cv::Mat> img_list,
-                std::vector<OCRPredictResult> &ocr_results,
-                std::vector<double> &times) {
-      std::vector<std::string> rec_texts(img_list.size(), "");
-      std::vector<float> rec_text_scores(img_list.size(), 0);
-      std::vector<double> rec_times;
-      this->mRecognizer->Run(img_list, rec_texts, rec_text_scores, rec_times);
-      // output rec results
-      for (int i = 0; i < rec_texts.size(); i++) {
-        ocr_results[i].text = rec_texts[i];
-        ocr_results[i].score = rec_text_scores[i];
-      }
-//   times[0] += rec_times[0];
-//   times[1] += rec_times[1];
-//   times[2] += rec_times[2];
-  }
+    // 分割字符串
+    void stringSplit(const string& s, vector<string>& tokens, char delim='_');
+
+
+    // ocr 推理时识别调用
+    std::vector<std::vector<OCRPredictResult>> mOCR(cv::Mat srcimg, bool det, bool rec, bool cls);
+
+    // rec 被mOCR调用，推理代码中不调用
+    void mREC(std::vector<cv::Mat> img_list,
+              std::vector<OCRPredictResult> &ocr_results,
+              std::vector<double> &times);
     
     
     std::shared_ptr<YOLODET> mDetector{nullptr}; //yolo det实例

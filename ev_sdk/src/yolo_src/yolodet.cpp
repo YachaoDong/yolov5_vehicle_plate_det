@@ -1,18 +1,43 @@
-
-
 #include "yolodet.h"
 #include <numeric>
+//#include <sys/stat.h>
 
 namespace Yolov5Det {
-    
-    YOLODET::YOLODET(){
-    };
+//     static bool ifFileExists(const char *FileName)
+//     {
+//         struct stat my_stat;
+//         return (stat(FileName, &my_stat) == 0);
+//     }
+
+
+YOLODET::YOLODET(){};
 
 void YOLODET::DetInit(int deviceid, const string& engine_file, float confidence_threshold, float nms_threshold) {
     // auto engine = std::make_shared<Yolo::create_infer>(
-    // 
+
+    // TODO 使用 onnx转engine_file 进行推理测试，此处的engine_file为.onnx文件
+    std::string model_file = engine_file;
+    size_t sep_pos = model_file.find_last_of(".");
+    model_file = model_file.substr(0, sep_pos) + ".trt";
+    std::cout<<"model_file: "<< model_file << std::endl;
+
+    if(not iLogger::exists(model_file))
+    {
+        std::cout<<"Convert the onnx model to trt model..."<< std::endl;
+        // 将onnx转为trt模型
+        TRT::compile(
+            TRT::Mode::FP32,            // 使用fp32模型编译
+            1,                          // max batch size
+            engine_file,              // onnx 文件
+            model_file,               // 保存的文件路径
+            {}                         // 重新定制输入的shape
+        );
+    }
+
+
+
     this->engine = Yolo::create_infer(
-    engine_file,                // engine file
+    model_file,                // engine file
     Yolo::Type::V5,                       // yolo type, Yolo::Type::V5 / Yolo::Type::X
     deviceid,                   // gpu id
     confidence_threshold,                      // confidence threshold 0.25f
