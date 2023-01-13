@@ -30,13 +30,13 @@ abs_path = os.getcwd()
 
 
 def convert(size, box):
-    # box: xmin, xmax, ymin, ymax
+    # box: xmin, ymin, xmax, ymax
     dw = 1. / (size[0])
     dh = 1. / (size[1])
-    x = (box[0] + box[1]) / 2.0 - 1
-    y = (box[2] + box[3]) / 2.0 - 1
-    w = box[1] - box[0]
-    h = box[3] - box[2]
+    x = (box[0] + box[2]) / 2.0
+    y = (box[1] + box[3]) / 2.0
+    w = abs(box[2] - box[0])
+    h = abs(box[3] - box[1])
     x = x * dw
     w = w * dw
     y = y * dh
@@ -67,11 +67,12 @@ def convert_annotation(image_id, xml_path='/project/train/src_repo/dataset/xmls/
 
         # 获取bbox
         xmlbox = obj.find('bndbox')
-        b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text),
-             float(xmlbox.find('ymax').text))
+        b = (float(xmlbox.find('xmin').text), float(xmlbox.find('ymin').text),
+             float(xmlbox.find('xmax').text), float(xmlbox.find('ymax').text))
+
         # bbox转换 xyxy 转换为 xywh(0~1)
-        # bb = convert((w, h), b)
-        bb = (b[0]/w, b[2]/h, b[1]/w, b[3]/h)
+        bb = convert((w, h), b)
+        # bb = (b[0]/w, b[2]/h, b[1]/w, b[3]/h)
 
         # 获取颜色
         color = obj.find('attributes').find('attribute').find('value').text
@@ -107,26 +108,44 @@ def convert_annotation(image_id, xml_path='/project/train/src_repo/dataset/xmls/
         # 获取bbox
         points = obj.find('points').text
         points = points.split(';')   # ["x1,y1", "x2,y3", "x3,y3","x4,y4"]
-        poly = []
-        for i in points:
-            x = float(i.split(',')[0]) / w
-            y = float(i.split(',')[1]) / h
-            poly.append(x)
-            poly.append(y)
+
+
+        x1 = float(points[0].split(',')[0])
+        y1 = float(points[0].split(',')[1])
+
+        x2 = float(points[1].split(',')[0])
+        y2 = float(points[1].split(',')[1])
+
+        x3 = float(points[2].split(',')[0])
+        y3 = float(points[2].split(',')[1])
+
+        x4 = float(points[3].split(',')[0])
+        y4 = float(points[3].split(',')[1])
+
+        # poly 转 xmin, xmax, ymin, ymax
+        p_xmin = min(x1, x2, x3, x4)
+        p_xmax = max(x1, x2, x3, x4)
+
+        p_ymin = min(y1, y2, y3, y4)
+        p_ymax = max(y1, y2, y3, y4)
+        poly = (p_xmin, p_ymin, p_xmax, p_ymax)
+        poly_bb = convert((w, h), poly)
 
         # 写入 cls_id + color_id + poly
-        out_file.write(str(cls_id) + " " + str(color_id) + " " + " ".join([str(a) for a in poly]))
+        out_file.write(str(cls_id) + " " + str(color_id) + " " + " ".join([str(a) for a in poly_bb]))
         # 换行
         out_file.write('\n')
 
         
         
 
-def gen_imgs_path():
-    
-    
+def gen_imgs_path(data_txt_path='/home/data/vehicle_data/'):
+    '''
+    根据 包含所有 all_det_imgs.txt 数据集绝对路径的 txt文件，分割成训练接、测试集、验证集
+    '''
+
     # 生成训练测试集，写入txt文件中
-    with open('/home/data/vehicle_data/all_det_imgs.txt', 'r') as f1:
+    with open(join(data_txt_path, 'all_det_imgs.txt'), 'r') as f1:
         all_det = f1.readlines()
         random.shuffle(all_det)
         
@@ -135,15 +154,15 @@ def gen_imgs_path():
         train_abs_img_paths = all_det[:int(train_percent*num_imgs)]
         test_abs_img_paths = all_det[int(train_percent*num_imgs):]
     
-        with open('/home/data/vehicle_data/train.txt', 'w') as f1:
+        with open(join(data_txt_path, 'train.txt'), 'w') as f1:
             for train_pwd in train_abs_img_paths:
                 f1.write(train_pwd)
 
-        with open('/home/data/vehicle_data/test.txt', 'w') as f1:
+        with open(join(data_txt_path, 'test.txt'), 'w') as f1:
             for test_pwd in test_abs_img_paths:
                 f1.write(test_pwd)
 
-        with open('/home/data/vehicle_data/val.txt', 'w') as f1:
+        with open(join(data_txt_path, 'val.txt'), 'w') as f1:
             for val_pwd in test_abs_img_paths:
                 f1.write(val_pwd)
         

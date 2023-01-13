@@ -846,6 +846,7 @@ def non_max_suppression(prediction,
             conf_color, j_color = x[:, nc+5:nc+5+nco].max(1, keepdim=True)  # best color
             # 类别置信度过滤
             x = torch.cat((box, conf, j.float(), j_color.float()), 1)[conf.view(-1) > conf_thres]
+
             # color 置信度过滤
             conf_color = conf_color[conf.view(-1) > conf_thres]
             x = x[conf_color.view(-1) > conf_thres]

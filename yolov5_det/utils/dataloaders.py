@@ -811,7 +811,7 @@ class LoadImagesAndLabels(Dataset):
             # Labels
             labels, segments = self.labels[index].copy(), self.segments[index].copy()
             if labels.size:
-                labels[:, 1:] = xywhn2xyxy(labels[:, 1:], w, h, padx, pady)  # normalized xywh to pixel xyxy format
+                labels[:, 2:] = xywhn2xyxy(labels[:, 2:], w, h, padx, pady)  # normalized xywh to pixel xyxy format
                 segments = [xyn2xy(x, w, h, padx, pady) for x in segments]
             labels9.append(labels)
             segments9.extend(segments)
@@ -980,6 +980,7 @@ def verify_image_label(args):
             nf = 1  # label found
             with open(lb_file) as f:
                 # all obj,  bbox and poly
+                # TODO 车牌poly转换放在处理数据集那一步
                 lb = [x.split() for x in f.read().strip().splitlines() if len(x)]
 
                 # car obj, bbox， cls_id, color_id, x, y, w, h (6)
